@@ -1,0 +1,11 @@
+<div *ngIf="people?.length > 0;else noPeople">
+    <ul *ngFor="let person of people" class="collection">
+      <li class="collection-item">
+        <b>Name: </b>{{person.name}} &nbsp; <b>Age: </b>{{person.age}}
+      </li>
+    </ul>  
+</div>
+
+<ng-template #noPeople>
+  <p>No People from firebase</p>    
+</ng-template>
