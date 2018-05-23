@@ -8,7 +8,10 @@ import { Person } from '../models/Person';
   styleUrls: ['./people.component.css']
 })
 export class PeopleComponent implements OnInit {
-
+  person: Person = {
+    name: '',
+    age: 0
+  }
   people: Person[];
   constructor(private peopleService: PeopleService) {
    }
@@ -17,6 +20,20 @@ export class PeopleComponent implements OnInit {
     this.peopleService.getPeople().subscribe(people => {
       this.people = people;
     });
+  }
+
+  addPerson(){
+    if(this.person.name != '' && this.person.age > 0){
+      this.peopleService.addPerson(this.person);
+      this.person = {
+        name: '',
+        age: 0
+      }
+    }
+  }
+
+  deletePerson(person){
+    this.peopleService.deletePerson(person);
   }
 
 }

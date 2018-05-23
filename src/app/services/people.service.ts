@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import { Person } from '../models/Person';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,33 @@ import { Observable } from 'rxjs';
 export class PeopleService {
 
   peopleCollection: AngularFirestoreCollection<Person>;
-  peopleObserve: Observable<Person[]>;
+  peopleObserver: Observable<Person[]>;
+  personDocument: AngularFirestoreDocument<Person>;
   constructor(public angularFirestore:AngularFirestore) {
-    this.peopleObserve = this.angularFirestore.collection('people').valueChanges() as Observable<Person[]>;
+    //this.peopleObserver = this.angularFirestore.collection('people').valueChanges() as Observable<Person[]>;
+    this.peopleCollection = this.angularFirestore.collection('people', arr => arr.orderBy('age', 'desc'));
+    this.peopleObserver = this.peopleCollection.snapshotChanges()
+    .pipe(
+      map(changes => {
+        return changes.map(temp => {
+          const data = temp.payload.doc.data() as Person;
+          data.id = temp.payload.doc.id;
+          return data;
+        });
+      })
+    );
    }
 
    getPeople(){
-     return this.peopleObserve;
+     return this.peopleObserver;
+   }
+
+   addPerson(person:Person){
+     this.peopleCollection.add(person);
+   }
+
+   deletePerson(person:Person){
+     this.personDocument = this.angularFirestore.doc(`people/${person.id}`);
+     this.personDocument.delete();
    }
 }

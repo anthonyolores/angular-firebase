@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PeopleComponent } from './people/people.component';
@@ -17,7 +18,8 @@ import { PeopleService } from './services/people.service';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase, 'angularfirebase'),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule
   ],
   providers: [
     PeopleService

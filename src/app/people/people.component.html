@@ -1,11 +1,32 @@
 <div *ngIf="people?.length > 0;else noPeople">
     <ul *ngFor="let person of people" class="collection">
       <li class="collection-item">
-        <b>Name: </b>{{person.name}} &nbsp; <b>Age: </b>{{person.age}}
+        <b>ID: </b>{{person.id}} &nbsp; <b>Name: </b>{{person.name}} &nbsp; <b>Age: </b>{{person.age}}
+        <span style="position:absolute; right:5px; cursor: pointer;" (click)="deletePerson(person)">delete</span>
       </li>
-    </ul>  
+    </ul> 
 </div>
-
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">
+      <form (ngSubmit)="addPerson()" class="col s6">
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="text" placeholder="Person Name" [(ngModel)]="person.name" name="person name">
+            <label>Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="number" placeholder="Person Age" [(ngModel)]="person.age" name="person age">
+            <label>Age</label>
+          </div>
+        </div>
+        <input type="submit" value="Add Person" class="btn">
+      </form>
+    </span>
+  </div>
+</div>
 <ng-template #noPeople>
   <p>No People from firebase</p>    
 </ng-template>
+
+
