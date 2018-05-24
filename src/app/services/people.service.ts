@@ -39,4 +39,9 @@ export class PeopleService {
      this.personDocument = this.angularFirestore.doc(`people/${person.id}`);
      this.personDocument.delete();
    }
+
+   updatePerson(person:Person){
+    this.personDocument = this.angularFirestore.doc(`people/${person.id}`);
+    this.personDocument.update(person);
+   }
 }

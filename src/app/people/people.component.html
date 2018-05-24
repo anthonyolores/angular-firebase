@@ -2,14 +2,17 @@
     <ul *ngFor="let person of people" class="collection">
       <li class="collection-item">
         <b>ID: </b>{{person.id}} &nbsp; <b>Name: </b>{{person.name}} &nbsp; <b>Age: </b>{{person.age}}
-        <span style="position:absolute; right:5px; cursor: pointer;" (click)="deletePerson(person)">delete</span>
+        <span style="position:absolute; right:5px; cursor: pointer;" >
+          <a (click)="editPerson(person)" >edit</a>&nbsp;
+          <a (click)="deletePerson(person)" >delete</a>&nbsp;
+         </span>
       </li>
     </ul> 
 </div>
 <div class="card">
   <div class="card-content">
     <span class="card-title">
-      <form (ngSubmit)="addPerson()" class="col s6">
+      <div class="col s6">
         <div class="row">
           <div class="input-field col s6">
             <input type="text" placeholder="Person Name" [(ngModel)]="person.name" name="person name">
@@ -20,8 +23,9 @@
             <label>Age</label>
           </div>
         </div>
-        <input type="submit" value="Add Person" class="btn">
-      </form>
+        <input type="button" [disabled]="update" (click)="addPerson($event)"  value="Add Person" class="btn">&nbsp;
+        <input type="button" [disabled]="!update" (click)="updatePerson(person)" value="Update Person" class="btn">
+      </div>
     </span>
   </div>
 </div>

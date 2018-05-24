@@ -13,6 +13,7 @@ export class PeopleComponent implements OnInit {
     age: 0
   }
   people: Person[];
+  update: boolean;
   constructor(private peopleService: PeopleService) {
    }
 
@@ -22,7 +23,7 @@ export class PeopleComponent implements OnInit {
     });
   }
 
-  addPerson(){
+  addPerson(event){
     if(this.person.name != '' && this.person.age > 0){
       this.peopleService.addPerson(this.person);
       this.person = {
@@ -32,8 +33,28 @@ export class PeopleComponent implements OnInit {
     }
   }
 
-  deletePerson(person){
+  updatePerson(person:Person){
+   this.peopleService.updatePerson(person);
+   this.person = {
+    name: '',
+    age: 0
+  }
+   this.update = false;
+  }
+
+  editPerson(person:Person){
+    this.update = true;
+    this.person = person;
+  }
+
+  deletePerson(person:Person){
     this.peopleService.deletePerson(person);
+    if(person.id == this.person.id){
+      this.person = {
+        name: '',
+        age: 0
+      }
+    }
   }
 
 }
