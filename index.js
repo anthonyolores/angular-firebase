@@ -4,12 +4,12 @@ const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'dist/angularfirebase')));
+app.use(express.static(path.join(__dirname, '/dist')));
 
 
 //subscribe route
 app.post('/',(request, response) => {
 });
 
-const port = process.env.PORT || '4080';
+const port = process.env.PORT || '8080';
 app.listen(port, () => console.log(`Server running on port ${port}`));
