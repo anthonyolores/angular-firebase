@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, '/dist')));
 
 
 //subscribe route
-app.get('/', function (req, res) { res.redirect('/index.html') });
+app.get('/', function (req, res) { });
 
 const port = process.env.PORT || '8080';
 app.listen(port, () => console.log(`Server running on port ${port}`));
